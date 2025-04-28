@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gran Rifa iPhone 16</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #e0f7fa; padding: 20px; text-align: center; }
+    h1 { color: #00796b; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(50px, 1fr)); gap: 5px; max-width: 800px; margin: 20px auto; }
+    .number { padding: 10px; border-radius: 8px; font-weight: bold; color: white; cursor: pointer; }
+    .available { background-color: #4CAF50; }
+    .sold { background-color: #F44336; }
+    .legend { margin-top: 20px; }
+    .legend span { display: inline-block; margin: 0 10px; padding: 5px 10px; border-radius: 5px; font-weight: bold; }
+    .available-legend { background-color: #4CAF50; color: white; }
+    .sold-legend { background-color: #F44336; color: white; }
+  </style>
+</head>
+<body>
+
+<h1>GRAN RIFA IPHONE 16</h1>
+
+<div class="legend">
+  <span class="available-legend">Disponible</span>
+  <span class="sold-legend">Vendido</span>
+</div>
+
+<div id="numbers" class="grid"></div>
+
+<script>
+const numbersContainer = document.getElementById('numbers');
+
+// Cambia esta URL por la tuya cuando publiques tu Web App:
+const API_URL = "https://script.google.com/macros/s/AKfycb....../exec";
+
+fetch(API_URL)
+  .then(response => response.json())
+  .then(data => {
+    const vendidos = data.vendidos;
+    
+    for (let i = 0; i < 1000; i++) {
+      const numberDiv = document.createElement('div');
+      numberDiv.classList.add('number');
+      if (vendidos.includes(i)) {
+        numberDiv.classList.add('sold');
+      } else {
+        numberDiv.classList.add('available');
+      }
+      numberDiv.textContent = i.toString().padStart(3, '0');
+      numbersContainer.appendChild(numberDiv);
+    }
+  })
+  .catch(error => {
+    console.error('Error cargando los datos:', error);
+  });
+</script>
+
+</body>
+</html>
